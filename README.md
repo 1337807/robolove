@@ -1,6 +1,6 @@
 # Robolove
 
-TODO: Write a gem description
+A simple wrapper for lego_nxt to drive Lego robots.
 
 ## Installation
 

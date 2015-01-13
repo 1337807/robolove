@@ -15,5 +15,11 @@ module Robolove
       self.brick.stop_motor(:a)
       self.brick.stop_motor(:b)
     end
+
+    def right(duration = 0.5)
+      self.brick.run_motor(:a)
+      sleep duration
+      self.brick.stop_motor(:a)
+    end
   end
 end

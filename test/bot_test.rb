@@ -13,9 +13,20 @@ class BotTest < Minitest::Test
     assert_equal brick, bot.brick
   end
 
-  def test_forward_runs_motor_a
+  def test_forward_runs_motors
+    def @brick.stop_motor(port); true; end
     @brick.expect(:run_motor, true, [:a])
+    @brick.expect(:run_motor, true, [:b])
     @bot.forward
+    @brick.verify
+  end
+
+  def test_forward_stops_motors_after_duration
+    def @brick.run_motor(port); true; end
+    @brick.expect(:stop_motor, true, [:a])
+    @brick.expect(:stop_motor, true, [:b])
+
+    @bot.forward(0)
     @brick.verify
   end
 end

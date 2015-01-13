@@ -8,8 +8,12 @@ module Robolove
       @brick = brick || LegoNXT::LowLevel.connect
     end
 
-    def forward
+    def forward(duration = 1)
       self.brick.run_motor(:a)
+      self.brick.run_motor(:b)
+      sleep duration
+      self.brick.stop_motor(:a)
+      self.brick.stop_motor(:b)
     end
   end
 end

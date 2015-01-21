@@ -63,4 +63,21 @@ class BotTest < Minitest::Test
     @bot.left(0)
     @brick.verify
   end
+
+  def test_backward_runs_both_motors
+    def @brick.stop_motor(port); true; end
+    @brick.expect(:run_motor, true, [@left])
+    @brick.expect(:run_motor, true, [@right])
+    @bot.backward
+    @brick.verify
+  end
+
+  def test_backward_stops_motors_after_duration
+    def @brick.run_motor(port); true; end
+    @brick.expect(:stop_motor, true, [@left])
+    @brick.expect(:stop_motor, true, [@right])
+
+    @bot.backward(0)
+    @brick.verify
+  end
 end

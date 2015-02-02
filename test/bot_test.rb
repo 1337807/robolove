@@ -5,7 +5,13 @@ class BotTest < Minitest::Test
     @brick = mock
     @left = 'test_left'
     @right = 'test_right'
-    @bot = Robolove::Bot.new(brick: @brick, left_motor: @left, right_motor: @right)
+    @speed = 100
+    @bot = Robolove::Bot.new(
+      brick: @brick,
+      left_motor: @left,
+      right_motor: @right,
+      speed: @speed
+    )
   end
 
   def test_bot_creates_a_brick
@@ -17,14 +23,14 @@ class BotTest < Minitest::Test
 
   def test_forward_runs_both_motors
     def @brick.stop_motor(port); true; end
-    @brick.expect(:run_motor, true, [@left])
-    @brick.expect(:run_motor, true, [@right])
+    @brick.expect(:run_motor, true, [@left, @speed])
+    @brick.expect(:run_motor, true, [@right, @speed])
     @bot.forward
     @brick.verify
   end
 
   def test_forward_stops_motors_after_duration
-    def @brick.run_motor(port); true; end
+    def @brick.run_motor(port, speed); true; end
     @brick.expect(:stop_motor, true, [@left])
     @brick.expect(:stop_motor, true, [@right])
 
@@ -34,14 +40,14 @@ class BotTest < Minitest::Test
 
   def test_right_runs_motor
     def @brick.stop_motor(port); true; end
-    @brick.expect(:run_motor, true, [@left])
+    @brick.expect(:run_motor, true, [@left, @speed])
 
     @bot.right
     @brick.verify
   end
 
   def test_right_stops_motor_after_duration
-    def @brick.run_motor(port); true; end
+    def @brick.run_motor(port, speed); true; end
     @brick.expect(:stop_motor, true, [@left])
 
     @bot.right(0)
@@ -50,14 +56,14 @@ class BotTest < Minitest::Test
 
   def test_left_runs_motor
     def @brick.stop_motor(port); true; end
-    @brick.expect(:run_motor, true, [@right])
+    @brick.expect(:run_motor, true, [@right, @speed])
 
     @bot.left
     @brick.verify
   end
 
   def test_left_stops_motor_after_duration
-    def @brick.run_motor(port); true; end
+    def @brick.run_motor(port, speed); true; end
     @brick.expect(:stop_motor, true, [@right])
 
     @bot.left(0)
@@ -66,14 +72,14 @@ class BotTest < Minitest::Test
 
   def test_backward_runs_both_motors
     def @brick.stop_motor(port); true; end
-    @brick.expect(:run_motor, true, [@left])
-    @brick.expect(:run_motor, true, [@right])
+    @brick.expect(:run_motor, true, [@left, -@speed])
+    @brick.expect(:run_motor, true, [@right, -@speed])
     @bot.backward
     @brick.verify
   end
 
   def test_backward_stops_motors_after_duration
-    def @brick.run_motor(port); true; end
+    def @brick.run_motor(port, speed); true; end
     @brick.expect(:stop_motor, true, [@left])
     @brick.expect(:stop_motor, true, [@right])
 

@@ -56,7 +56,7 @@ class BotTest < Minitest::Test
     @brick.verify
   end
 
-  def test_right_stops_motor_after_duration
+  def test_left_stops_motor_after_duration
     def @brick.run_motor(port); true; end
     @brick.expect(:stop_motor, true, [@right])
 

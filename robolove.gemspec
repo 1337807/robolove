@@ -6,8 +6,8 @@ require 'robolove/version'
 Gem::Specification.new do |spec|
   spec.name          = "Robolove"
   spec.version       = Robolove::VERSION
-  spec.authors       = ["Jonan Scheffler"]
-  spec.email         = ["jonanscheffler@gmail.com"]
+  spec.authors       = ["Jonan Scheffler", "Zoe Kay"]
+  spec.email         = ["jonanscheffler@gmail.com", "zoevkay@gmail.com"]
   spec.summary       = %q{A simple library to control LegoNXT robots.}
   spec.description   = %q{Robolove wraps the lego_nxt gem to make driving easier.}
   spec.homepage      = "https://github.com/1337807/robolove"

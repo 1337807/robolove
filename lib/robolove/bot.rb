@@ -37,14 +37,18 @@ module Robolove
 
     def right(duration = 0.5)
       self.brick.run_motor(self.left_motor, self.speed)
+      self.brick.run_motor(self.right_motor, -self.speed)
       sleep duration
       self.brick.stop_motor(self.left_motor)
+      self.brick.stop_motor(self.right_motor)
     end
 
     def left(duration = 0.5)
       self.brick.run_motor(self.right_motor, self.speed)
+      self.brick.run_motor(self.left_motor, -self.speed)
       sleep duration
       self.brick.stop_motor(self.right_motor)
+      self.brick.stop_motor(self.left_motor)
     end
   end
 end

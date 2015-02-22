@@ -22,68 +22,67 @@ class BotTest < Minitest::Test
   end
 
   def test_forward_runs_both_motors
-    def @brick.stop_motor(port); true; end
-    @brick.expect(:run_motor, true, [@left, @speed])
-    @brick.expect(:run_motor, true, [@right, @speed])
-    @bot.forward
-    @brick.verify
+    @brick.stubs(:stop_motor)
+    @brick.expects(:run_motor).with(@left, @speed)
+    @brick.expects(:run_motor).with(@right, @speed)
+
+    @bot.forward(0)
   end
 
   def test_forward_stops_motors_after_duration
-    def @brick.run_motor(port, speed); true; end
-    @brick.expect(:stop_motor, true, [@left])
-    @brick.expect(:stop_motor, true, [@right])
+    @brick.stubs(:run_motor)
+    @brick.expects(:stop_motor).with(@left)
+    @brick.expects(:stop_motor).with(@right)
 
     @bot.forward(0)
-    @brick.verify
   end
 
-  def test_right_runs_motor
-    def @brick.stop_motor(port); true; end
-    @brick.expect(:run_motor, true, [@left, @speed])
-
-    @bot.right
-    @brick.verify
-  end
-
-  def test_right_stops_motor_after_duration
-    def @brick.run_motor(port, speed); true; end
-    @brick.expect(:stop_motor, true, [@left])
+  def test_right_runs_motors
+    @brick.stubs(:stop_motor)
+    @brick.expects(:run_motor).with(@left, @speed)
+    @brick.expects(:run_motor).with(@right, -@speed)
 
     @bot.right(0)
-    @brick.verify
   end
 
-  def test_left_runs_motor
-    def @brick.stop_motor(port); true; end
-    @brick.expect(:run_motor, true, [@right, @speed])
+  def test_right_stops_motors_after_duration
+    @brick.stubs(:run_motor)
+    @brick.expects(:stop_motor).with(@left)
+    @brick.expects(:stop_motor).with(@right)
 
-    @bot.left
-    @brick.verify
+    @bot.right(0)
   end
 
-  def test_left_stops_motor_after_duration
-    def @brick.run_motor(port, speed); true; end
-    @brick.expect(:stop_motor, true, [@right])
+  def test_left_runs_motors
+    @brick.stubs(:stop_motor)
+    @brick.expects(:run_motor).with(@right, @speed)
+    @brick.expects(:run_motor).with(@left, -@speed)
 
     @bot.left(0)
-    @brick.verify
+  end
+
+  def test_left_stops_motors_after_duration
+    @brick.stubs(:run_motor)
+    @brick.expects(:stop_motor).with(@right)
+    @brick.expects(:stop_motor).with(@left)
+
+    @bot.left(0)
   end
 
   def test_backward_runs_both_motors
     def @brick.stop_motor(port); true; end
-    @brick.expect(:run_motor, true, [@left, -@speed])
-    @brick.expect(:run_motor, true, [@right, -@speed])
-    @bot.backward
-    @brick.verify
+    @brick.stubs(:stop_motor)
+    @brick.expects(:run_motor).with(@left, -@speed)
+    @brick.expects(:run_motor).with(@right, -@speed)
+
+    @bot.backward(0)
   end
 
   def test_backward_stops_motors_after_duration
-    def @brick.run_motor(port, speed); true; end
-    @brick.expect(:stop_motor, true, [@left])
-    @brick.expect(:stop_motor, true, [@right])
+    @brick.stubs(:run_motor)
+    @brick.expects(:stop_motor).with(@left)
+    @brick.expects(:stop_motor).with(@right)
 
     @bot.backward(0)
-    @brick.verify
   end
 end

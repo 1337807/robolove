@@ -50,5 +50,10 @@ module Robolove
       self.brick.stop_motor(self.right_motor)
       self.brick.stop_motor(self.left_motor)
     end
+
+    def stop
+      self.brick.stop_motor(self.right_motor)
+      self.brick.stop_motor(self.left_motor)
+    end
   end
 end
